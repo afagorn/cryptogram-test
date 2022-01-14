@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  nginx:
+    build:
+      context: docker/nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: docker/php
+    user: "1000:1000"
+    volumes:
+      - ./:/srv/www/
+
+  php-cli:
+    user: "1000:1000"
+    build:
+      context: docker/php-cli
+    volumes:
+      - ./:/srv/www/
